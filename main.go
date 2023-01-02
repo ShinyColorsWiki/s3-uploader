@@ -20,6 +20,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/aws/aws-sdk-go/aws/"
+	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
@@ -68,6 +70,18 @@ func main() {
 		os.Exit(0)
 	}
 
+	// Endpoint setup
+	endpoint = strings.ToLower(os.Getenv("AWS_ENDPOINT"))
+	endpointResolver := func(service, region string, optFns ...func(*endpoints.Options)) (endpoints.ResolvedEndpoint, error) {
+		if endpoint != "" {
+			return endpoints.ResolvedEndpoint{
+				URL: endpoint
+			}, nil
+		}
+	
+		return endpoints.DefaultResolver().EndpointFor(service, region, optFns...)
+	}
+
 	// snippet-start:[s3.go.upload_object.args]
 	bucket := flag.String("b", "", "The bucket to upload the file to")
 	fpath := flag.String("f", "", "The file to upload")
@@ -84,8 +98,14 @@ func main() {
 		*fname = filepath.Base(*fpath)
 	}
 
+	if	
+
 	// snippet-start:[s3.go.upload_object.session]
-	sess := session.Must(session.NewSessionWithOptions(session.Options{}))
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		Config: aws.Config {
+			EndpointResolver: endpoints.ResolverFunc(endpointResolver),
+		}
+	}))
 	// snippet-end:[s3.go.upload_object.session]
 
 	err := PutFile(sess, bucket, fpath, fname)

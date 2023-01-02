@@ -108,10 +108,9 @@ func main() {
 	}))
 	// snippet-end:[s3.go.upload_object.session]
 
-	putFileErr := PutFile(sess, bucket, fpath, fname)
-	if putFileErr != nil {
+	if err := PutFile(sess, bucket, fpath, fname); err != nil {
 		fmt.Println("Got error uploading file:")
-		fmt.Println(putFileErr)
+		fmt.Println(err)
 		return
 	}
 }

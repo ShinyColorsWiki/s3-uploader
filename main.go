@@ -71,7 +71,7 @@ func main() {
 	}
 
 	// Endpoint setup
-	endpoint = strings.ToLower(os.Getenv("AWS_ENDPOINT"))
+	endpoint := strings.ToLower(os.Getenv("AWS_ENDPOINT_URL"))
 	endpointResolver := func(service, region string, optFns ...func(*endpoints.Options)) (endpoints.ResolvedEndpoint, error) {
 		if endpoint != "" {
 			return endpoints.ResolvedEndpoint{

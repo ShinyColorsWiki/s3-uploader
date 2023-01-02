@@ -98,8 +98,6 @@ func main() {
 		*fname = filepath.Base(*fpath)
 	}
 
-	if	
-
 	// snippet-start:[s3.go.upload_object.session]
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		Config: aws.Config{
@@ -108,7 +106,7 @@ func main() {
 	}))
 	// snippet-end:[s3.go.upload_object.session]
 
-	if err := PutFile(sess, bucket, fpath, fname); err != nil {
+	f err := PutFile(sess, bucket, fpath, fname); err != nil {
 		fmt.Println("Got error uploading file:")
 		fmt.Println(err)
 		return

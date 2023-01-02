@@ -75,7 +75,7 @@ func main() {
 	endpointResolver := func(service, region string, optFns ...func(*endpoints.Options)) (endpoints.ResolvedEndpoint, error) {
 		if endpoint != "" {
 			return endpoints.ResolvedEndpoint{
-				URL: endpoint
+				URL: endpoint,
 			}, nil
 		}
 	
@@ -102,9 +102,9 @@ func main() {
 
 	// snippet-start:[s3.go.upload_object.session]
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		Config: aws.Config {
+		Config: aws.Config{
 			EndpointResolver: endpoints.ResolverFunc(endpointResolver),
-		}
+		},
 	}))
 	// snippet-end:[s3.go.upload_object.session]
 

@@ -1,6 +1,6 @@
 module github.com/ShinyColorsWiki/s3-uploader
 
-go 1.23
+go 1.27.4
 
 require github.com/aws/aws-sdk-go v1.55.8
 
